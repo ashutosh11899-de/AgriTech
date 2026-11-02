@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { Leaf, Eye, EyeOff, Mail, Lock, User, ArrowLeft, KeyRound, CheckCircle } from 'lucide-react';
+import { Leaf, Eye, EyeOff, Mail, Lock, User, ArrowLeft, KeyRound, CheckCircle, Sun, Droplets, ChartNoAxesCombined } from 'lucide-react';
 
 type Mode = 'signin' | 'signup' | 'forgot';
 
@@ -73,22 +73,37 @@ export default function AuthPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-900 via-green-800 to-emerald-900 flex items-center justify-center p-4">
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-green-700/20 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-emerald-600/20 rounded-full blur-3xl" />
-      </div>
-
-      <div className="relative w-full max-w-md">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-green-500 rounded-2xl mb-4 shadow-lg">
-            <Leaf className="w-9 h-9 text-white" />
-          </div>
-          <h1 className="text-3xl font-bold text-white">AgriTech</h1>
-          <p className="text-green-300 mt-1 text-sm">Empowering Farmers with Digital Technology</p>
+    <div className="min-h-screen bg-[#f7f4ef] lg:grid lg:grid-cols-2">
+      <section
+        className="relative hidden min-h-screen overflow-hidden bg-cover bg-center lg:flex lg:flex-col lg:justify-between p-10 text-white"
+        style={{ backgroundImage: 'linear-gradient(180deg, rgba(7, 37, 24, 0.48), rgba(4, 38, 24, 0.97)), url(https://images.pexels.com/photos/39347812/pexels-photo-39347812.jpeg?auto=compress&cs=tinysrgb&h=650&w=940)' }}
+      >
+        <div className="relative flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-green-500 flex items-center justify-center shadow-lg"><Leaf className="w-5 h-5" /></div>
+          <span className="font-semibold tracking-tight">AgriTech</span>
         </div>
+        <div className="relative max-w-lg">
+          <div className="text-green-300 text-xs font-semibold uppercase tracking-[0.2em] mb-4">Smart farming, made simple</div>
+          <h1 className="text-4xl xl:text-5xl font-semibold leading-[1.08] tracking-tight">Grow smarter,<br />one season at a time.</h1>
+          <p className="mt-5 max-w-md text-sm leading-6 text-green-50/80">Everything a modern farm needs in one place: weather, crops, and the resources to keep them thriving.</p>
+          <div className="mt-8 space-y-4 text-sm text-green-50/90">
+            <div className="flex items-center gap-3"><span className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center"><Sun className="w-4 h-4 text-green-300" /></span>Live forecasts for your exact farm location</div>
+            <div className="flex items-center gap-3"><span className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center"><Droplets className="w-4 h-4 text-green-300" /></span>Frost, heat, and storm alerts before they hit</div>
+            <div className="flex items-center gap-3"><span className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center"><ChartNoAxesCombined className="w-4 h-4 text-green-300" /></span>Track crops from planting to harvest</div>
+          </div>
+        </div>
+        <div className="relative text-xs text-green-100/60">Built for farmers who work with the land.</div>
+      </section>
 
-        <div className="bg-white rounded-3xl shadow-2xl p-8">
+      <section className="flex min-h-screen items-center justify-center p-5 sm:p-8">
+        <div className="w-full max-w-md">
+          <div className="mb-7">
+            <div className="flex items-center gap-2 text-green-700 lg:hidden mb-8"><span className="w-8 h-8 rounded-lg bg-green-600 flex items-center justify-center"><Leaf className="w-4 h-4 text-white" /></span><span className="font-bold">AgriTech</span></div>
+            <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-[#332b24]">{isRecovery ? 'Create a new password' : mode === 'forgot' ? 'Reset your password' : mode === 'signin' ? 'Welcome back' : 'Create your account'}</h1>
+            <p className="mt-2 text-sm text-[#8d8174]">{isRecovery ? 'Choose a strong password for your account.' : mode === 'forgot' ? 'We will send a secure link to your email.' : mode === 'signin' ? 'Sign in to keep your farm growing.' : 'Set up your farm in a few minutes.'}</p>
+          </div>
+
+        <div className="bg-white/70 rounded-2xl border border-[#e9e2d8] shadow-[0_18px_50px_rgba(86,68,48,0.08)] p-6 sm:p-8">
           {!isRecovery && mode !== 'forgot' && (
             <div className="flex bg-gray-100 rounded-xl p-1 mb-6">
               <button onClick={() => changeMode('signin')} className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all ${mode === 'signin' ? 'bg-white shadow text-green-700' : 'text-gray-500 hover:text-gray-700'}`}>
@@ -190,7 +205,8 @@ export default function AuthPage() {
             <p className="text-center text-xs text-gray-500 mt-6">By continuing, you agree to our <span className="text-green-600 cursor-pointer hover:underline">Terms of Service</span></p>
           )}
         </div>
-      </div>
+        </div>
+      </section>
     </div>
   );
 }
