@@ -13,7 +13,7 @@ import AdminPage from '@/pages/AdminPage';
 import ProfilePage from '@/pages/ProfilePage';
 
 function AppContent() {
-  const { user, loading } = useAuth();
+  const { user, loading, passwordRecovery } = useAuth();
   const [currentPage, setCurrentPage] = useState('dashboard');
 
   if (loading) {
@@ -27,7 +27,7 @@ function AppContent() {
     );
   }
 
-  if (!user) return <AuthPage />;
+  if (!user || passwordRecovery) return <AuthPage />;
 
   function renderPage() {
     switch (currentPage) {
